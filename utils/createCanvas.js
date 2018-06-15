@@ -7,7 +7,6 @@ async function createCanvas(columns, rows, cellWidth, cellHeight, images) {
     })
 
     console.log(images);
-    
 
     for(let index = 0; index < images.length; index++) {
         const image = images[index]
@@ -27,10 +26,10 @@ async function createCanvas(columns, rows, cellWidth, cellHeight, images) {
                     canvas.setPixelColor(color, (canvasX * cellWidth) + x, (canvasY * cellHeight) + y);
                 }
             }
-            return Promise.resolve(canvas)
+            return canvas
         }).then(source => {
             // canvas.write(`output/canvas${index}.jpg`)
-            return Promise.resolve()
+            return Promise.resolve(source);
         })
 
         console.log(`===== ${index} =====`)
