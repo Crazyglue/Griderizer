@@ -28,7 +28,6 @@ async function createCanvas(columns, rows, cellWidth, cellHeight, images) {
             }
             return canvas
         }).then(source => {
-            // canvas.write(`output/canvas${index}.jpg`)
             return Promise.resolve(source);
         })
 

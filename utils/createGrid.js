@@ -12,9 +12,9 @@ async function createGrid({ columns, rows, ppi, inputFolder, diameterMM, outputF
     const crossImage = createCross(tileDimensionsPixels);
     crossImage.write(`${outputFolder}/cross.jpg`);
 
-    Promise.all(_.map(files, img => {
-        return shapeImage(img, tileDimensionsPixels).then(shapedImage => shapedImage.write(`${outputFolder}/${img}`))
-    }))
+    Promise.all(
+        _.map(files, img => shapeImage(img, tileDimensionsPixels).then(shapedImage => shapedImage.write(`${outputFolder}/${img}`))
+    ))
     .then(async shapedImages => {
         const canvas = await createCanvas(columns, rows, tileDimensionsPixels.x, tileDimensionsPixels.y, ['cross.jpg', ...files, 'cross.jpg'])
         canvas.write(`${outputFolder}/canvas-final.jpg`)
