@@ -8,28 +8,30 @@ async function createCanvas(columns, rows, cellWidth, cellHeight, images) {
 
     console.log(images);
 
-    for(let index = 0; index < images.length; index++) {
-        const image = images[index]
-        console.log('----------')
-        console.log('index:', index)
-        await Jimp.read(`output/${image}`).then(source => {
-            const { width, height } = source.bitmap;
+    let totalImageCount = 0;
 
-            const canvasY = Math.floor(index / (columns))
-            const canvasX = index % (columns)
+    for(let index = 0; index < images.length; index++) {
+        const { count, image } = images[index]
+        console.log('----------')
+
+        for(let j = 0; j < count; j++) {
+            console.log('index:count', index, ":", j)
+            const { width, height } = image.bitmap;
+
+            const canvasY = Math.floor(totalImageCount / (columns))
+            const canvasX = totalImageCount % (columns)
 
             console.log(`cell:  ${canvasX}, ${canvasY}`)
 
             for (let y = 0; y < height; y++) {
                 for (let x = 0; x < width; x++) {
-                    const color = source.getPixelColor(x, y);
+                    const color = image.getPixelColor(x, y);
                     canvas.setPixelColor(color, (canvasX * cellWidth) + x, (canvasY * cellHeight) + y);
                 }
             }
-            return canvas
-        }).then(source => {
-            return Promise.resolve(source);
-        })
+
+            totalImageCount++
+        }
 
         console.log(`===== ${index} =====`)
     }
