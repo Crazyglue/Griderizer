@@ -29,12 +29,8 @@ async function createGrid({ columns, rows, ppi, inputFolder, diameterMM, outputF
     })
 
     const canvas = await createCanvas(columns, rows, tileDimensionsPixels.x, tileDimensionsPixels.y, [{ image: crossImage, count: 1 }, ...mappedImages, { image: crossImage, count: 1 }])
-    const values = _.map(mappedImages, img => {
-        return img.count
-    })
-    console.log('values', values);
-    canvas.write(`${outputFolder}/canvas_${values.join('-')}.jpg`)
-
+    canvas.write(`${outputFolder}/canvas-${new Date().getTime()}.jpg`)
+    return canvas
 }
 
 module.exports = createGrid;
