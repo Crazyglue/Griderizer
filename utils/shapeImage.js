@@ -1,7 +1,9 @@
 var Jimp = require("jimp");
 
-function shapeImage(image, tileDimensionsPixels) {
-    return Jimp.read(`input/${image}`).then(imageFile => {
+async function shapeImage(image, tileDimensionsPixels) {
+    const trimmedImage = image.replace(/^data:image\/(.+);base64,/, '');
+    const buffer = Buffer.from(trimmedImage, 'base64');
+    return Jimp.read(buffer).then(imageFile => {
         const clonedImage = imageFile.clone();
 
         // crop width/height if needed (to make square)
