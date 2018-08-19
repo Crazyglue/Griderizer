@@ -1,8 +1,8 @@
 var Jimp = require("jimp");
 
-async function shapeImage(image, tileDimensionsPixels) {
-    const trimmedImage = image.replace(/^data:image\/(.+);base64,/, '');
-    const buffer = Buffer.from(trimmedImage, 'base64');
+async function shapeImage(buffer, tileDimensionsPixels) {
+    // const trimmedImage = image.replace(/^data:image\/(.+);base64,/, '');
+    // const buffer = Buffer.from(trimmedImage, 'base64');
     return Jimp.read(buffer).then(imageFile => {
         const clonedImage = imageFile.clone();
 
