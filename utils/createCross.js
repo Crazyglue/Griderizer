@@ -8,9 +8,6 @@ function createCross(tileDimensionsPixels) {
           reject(err);
         }
         const crossColor = Jimp.rgbaToInt(0, 0, 0, 1);
-
-        image.scaleToFit(tileDimensionsPixels.x, tileDimensionsPixels.x)
-
         const halfWidth = Math.floor(tileDimensionsPixels.x / 2)
         const halfHeight = Math.floor(tileDimensionsPixels.y / 2)
 
