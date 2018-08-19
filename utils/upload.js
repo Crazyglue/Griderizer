@@ -1,11 +1,9 @@
 const AWS = require('aws-sdk');
 
-const { accessKeyId, secretAccessKey, bucket, server } = require('../config/env');
-AWS.config.update({ accessKeyId, secretAccessKey });
+module.exports = (buffer, { accessKeyId, secretAccessKey, bucket, server }) => {
+    AWS.config.update({ accessKeyId, secretAccessKey });
+    const s3 = new AWS.S3( { params: { Bucket: bucket, timeout: 6000000 } });
 
-const s3 = new AWS.S3( { params: {Bucket: 'image-manip', timeout: 6000000} });
-
-module.exports = (buffer) => {
     const key = `canvas-${new Date().getTime()}.jpg`;
     console.log('key', key);
     return s3.putObject({

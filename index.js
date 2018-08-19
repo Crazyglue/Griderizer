@@ -10,20 +10,25 @@ const upload = require('./utils/upload');
  * @param {String} params.inputFolder
  * @param {Number} params.diameterMM
  */
-module.exports = async (params) => {
-    const canvas = await createGrid(params);
+module.exports = (awsConfig) => {
 
-    // get buffer for upload
-    const buffer = await new Promise( (resolve, reject) => {
-      canvas.getBuffer(Jimp.MIME_JPEG, (err, result) => {
-        if (err) reject(err);
-        resolve(result);
-      });
-    })
-    const url = await upload(buffer)
-
-    return {
-      image: url,
-      error: false
-    };
-}
+  return {
+    async run (params) {
+      const canvas = await createGrid(params);
+    
+      // get buffer for upload
+      const buffer = await new Promise( (resolve, reject) => {
+        canvas.getBuffer(Jimp.MIME_JPEG, (err, result) => {
+          if (err) reject(err);
+          resolve(result);
+        });
+      })
+      const url = await upload(buffer, awsConfig)
+    
+      return {
+        image: url,
+        error: false
+      };
+    }
+  }
+};
