@@ -2,11 +2,19 @@ var Jimp = require("jimp");
 var _ = require('lodash');
 
 async function createCanvas(columns, rows, cellWidth, cellHeight, images) {
-    const canvas = new Jimp(columns * cellWidth, rows * cellHeight, Jimp.rgbaToInt(24, 48, 48, 1), (err, newCanvas) => {
-        if (err) throw err;
+  console.log('cellHeight: ', cellHeight);
+  console.log('rows: ', rows);
+    const canvasPromise = new Promise((resolve, reject) => {
+      new Jimp(columns * cellWidth, rows * cellHeight, Jimp.rgbaToInt(24, 48, 48, 1), (err, newCanvas) => {
+        if (err) {
+          console.log('err: ', err);
+          reject(err);
+        }
+        resolve(newCanvas);
+      })
     })
 
-    console.log(images);
+    const canvas = await canvasPromise;
 
     let totalImageCount = 0;
 

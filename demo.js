@@ -1,9 +1,6 @@
 const createGrid = require('./utils/createGrid');
 const inquirer = require('inquirer');
-const AWS = require('aws-sdk');
-const Jimp = require('jimp');
-const { accessKeyId, secretAccessKey, bucket, server } = require('./config/env');
-AWS.config.update({ accessKeyId, secretAccessKey });
+const upload = require('./utils/upload');
 
 var questions = [
     {
@@ -66,36 +63,8 @@ var questions = [
 
 inquirer.prompt(questions).then(async answers => {
     const canvas = await createGrid(answers);
-
-    const s3 = new AWS.S3( { params: {Bucket: 'image-manip', timeout: 6000000} });
-
-    console.log('s3 created...')
-
-    try {
-        console.log('canvas', canvas)
-        await canvas.getBuffer(Jimp.MIME_JPEG, (error, buffer) => {
-            if (error) {
-                console.log('error', error)
-            }
-            console.log('buffer created...', buffer)
-
-            const key = `canvas-${new Date().getTime()}.jpg`
-            console.log('key', key)
-            s3.putObject({
-                Bucket: bucket,
-                Key: key,
-                Body: buffer,
-                ACL: 'public-read'
-            }, function (resp) {
-                console.log(arguments);
-                console.log('Successfully uploaded package.');
-                console.log('link: ', `${server}/${bucket}/${key}`)
-            });
-        }).catch(err => console.log('err', err))
-    } catch(err) {
-        console.log('try err', err)
-    }
-
+    upload(canvas);
+   
 }).catch(err => {
     console.log('questionErr', err)
 });
