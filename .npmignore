@@ -1,0 +1,5 @@
+output/
+input/
+designs/
+.sonarlint
+demo.js
