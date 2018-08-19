@@ -1,14 +1,14 @@
 {
   "name": "image-manip",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "",
   "main": "index.js",
   "scripts": {
     "demo": "node demo.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
-  "license": "ISC",
+  "author": "Eric Dobroveanu <eric.dobroveanu@gmail.com>",
+  "license": "MIT",
   "dependencies": {
     "aws-sdk": "^2.260.1",
     "inquirer": "^6.0.0",
