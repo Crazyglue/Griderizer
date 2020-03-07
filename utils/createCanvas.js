@@ -18,15 +18,12 @@ async function createCanvas(columns, rows, cellWidth, cellHeight, images) {
 
     for(let index = 0; index < images.length; index++) {
         const { count, image } = images[index]
-        console.log('----------')
 
         for(let j = 0; j < count; j++) {
             const { width, height } = image.bitmap;
 
             const canvasY = Math.floor(totalImageCount / (columns))
             const canvasX = totalImageCount % (columns)
-
-            console.log(`cell:  ${canvasX}, ${canvasY}`)
 
             for (let y = 0; y < height; y++) {
                 for (let x = 0; x < width; x++) {
@@ -37,8 +34,6 @@ async function createCanvas(columns, rows, cellWidth, cellHeight, images) {
 
             totalImageCount++
         }
-
-        console.log(`===== ${index} =====`)
     }
     return canvas
 }
