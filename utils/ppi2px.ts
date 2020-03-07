@@ -1,4 +1,9 @@
-function convert(ppi, mm) {
+export interface TimeDimensions {
+  x: number;
+  y: number;
+}
+
+export default function convert(ppi: number, mm: number): TimeDimensions {
   try {
     const tileDimensionsInches = mm / 25.4;
     const tileDimensionsPixels = {
@@ -12,5 +17,3 @@ function convert(ppi, mm) {
     throw new Error(e);
   }
 }
-
-module.exports = convert;

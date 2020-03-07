@@ -5,13 +5,31 @@ const createCross = require('./createCross');
 const shapeImage = require('./shapeImage');
 const createCanvas = require('./createCanvas');
 
-async function createGrid({ columns, rows, ppi, files, diameterMM }, coversionType = null) {
+interface InputFile {
+  file: Buffer;
+  count: number;
+}
+
+export interface GridParams {
+  columns: number;
+  rows: number;
+  ppi: number;
+  files: InputFile[];
+  diameterMM: number;
+}
+
+export interface ProcessedImage {
+  image: any;
+  count: number;
+}
+
+export default async function createGrid({ columns, rows, ppi, files, diameterMM }: GridParams, coversionType: string = null) {
     const tileDimensionsPixels = ppi2px(ppi, diameterMM);
 
     const crossImage = await createCross(tileDimensionsPixels);
 
-    const shapedImages = await Promise.all(
-      _.map(files, async img => {
+    const shapedImages: ProcessedImage[] = await Promise.all(
+      files.map(async img => {
         const shapedImage = await shapeImage(img.file, tileDimensionsPixels);
         return {
           image: shapedImage,
@@ -27,5 +45,3 @@ async function createGrid({ columns, rows, ppi, files, diameterMM }, coversionTy
       return canvas;
     }
 }
-
-module.exports = createGrid;

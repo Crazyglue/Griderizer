@@ -1,6 +1,8 @@
-const createGrid = require('./utils/createGrid');
+const createGrid = require('./built/utils/createGrid');
 const inquirer = require('inquirer');
-const upload = require('./utils/upload');
+import { GridParams } from './utils/createGrid'
+// const upload = require('./built/utils/upload');
+const fs = require('fs');
 
 var questions = [
     {
@@ -19,7 +21,7 @@ var questions = [
         type: 'input',
         name: 'columns',
         message: 'Columns (width)',
-        validate: function (value) {
+        validate: function (value: string) {
             var valid = !isNaN(parseFloat(value));
             return valid || 'Please enter a number';
         },
@@ -30,7 +32,7 @@ var questions = [
         type: 'input',
         name: 'rows',
         message: 'Rows (height)',
-        validate: function (value) {
+        validate: function (value: string) {
             var valid = !isNaN(parseFloat(value));
             return valid || 'Please enter a number';
         },
@@ -41,7 +43,7 @@ var questions = [
         type: 'input',
         name: 'ppi',
         message: 'PPI',
-        validate: function (value) {
+        validate: function (value: string) {
             var valid = !isNaN(parseFloat(value));
             return valid || 'Please enter a number';
         },
@@ -52,7 +54,7 @@ var questions = [
         type: 'input',
         name: 'diameterMM',
         message: 'Jewel Diameter (mm)',
-        validate: function (value) {
+        validate: function (value: string) {
             var valid = !isNaN(parseFloat(value));
             return valid || 'Please enter a number';
         },
@@ -61,10 +63,12 @@ var questions = [
     }
 ];
 
-inquirer.prompt(questions).then(async answers => {
+inquirer.prompt(questions).then(async (answers: GridParams) => {
     const canvas = await createGrid(answers);
-    upload(canvas);
-   
-}).catch(err => {
+    console.log('canvas', canvas)
+    fs.writeFileSync('./demo/canvas.jpg', canvas);
+    // upload(canvas);
+
+}).catch((err: any) => {
     console.log('questionErr', err)
 });

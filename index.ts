@@ -1,4 +1,4 @@
-const createGrid = require('./utils/createGrid');
+import createGrid from './utils/createGrid';
 
 /**
  * @param {Object} params
