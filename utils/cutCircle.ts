@@ -4,7 +4,7 @@ function pythag(a: number, b: number) {
     return Math.round(Math.sqrt(a**2 + b**2));
 }
 
-export default async function cutCircle(image: Jimp) {
+export default function cutCircle(image: Jimp) {
     const { width, height } = image.bitmap;
     console.log('cutCircle -> width', width)
     console.log('cutCircle -> height', height)
