@@ -2,7 +2,7 @@
   "name": "image-manip",
   "version": "0.2.0",
   "description": "",
-  "main": "index.js",
+  "main": "built/index.js",
   "scripts": {
     "build": "tsc",
     "demo": "ts-node demo.ts",

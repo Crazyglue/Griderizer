@@ -6,7 +6,7 @@ import shapeImage from './shapeImage';
 import createCanvas from './createCanvas';
 
 interface InputFile {
-  file: Buffer;
+  file: string;
   count: number;
 }
 
@@ -23,7 +23,7 @@ export interface ProcessedImage {
   count: number;
 }
 
-export default async function createGrid({ columns, rows, ppi, files, diameterMM }: GridParams, coversionType: string = null) {
+export default async function createGrid({ columns, rows, ppi, files, diameterMM }: GridParams, coversionType: string = null): Promise<Jimp> {
     const tileDimensionsPixels = ppi2px(ppi, diameterMM);
 
     const crossImage = await createCross(tileDimensionsPixels);
@@ -39,9 +39,10 @@ export default async function createGrid({ columns, rows, ppi, files, diameterMM
     );
 
     const canvas = await createCanvas(columns, rows, tileDimensionsPixels.x, tileDimensionsPixels.y, [{ image: crossImage, count: 1 }, ...shapedImages, { image: crossImage, count: 1 }]);
-    if (coversionType === 'base64') {
-      return await canvas.getBase64Async(Jimp.MIME_JPEG);
-    } else {
-      return canvas;
-    }
+    return canvas;
+    // if (coversionType === 'base64') {
+    //   return await canvas.getBase64Async(Jimp.MIME_JPEG);
+    // } else {
+    //   return canvas;
+    // }
 }

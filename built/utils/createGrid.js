@@ -43,7 +43,6 @@ var __spreadArrays = (this && this.__spreadArrays) || function () {
     return r;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var Jimp = require("jimp");
 var ppi2px_1 = require("./ppi2px");
 var createCross_1 = require("./createCross");
 var shapeImage_1 = require("./shapeImage");
@@ -80,10 +79,7 @@ function createGrid(_a, coversionType) {
                     return [4, createCanvas_1.default(columns, rows, tileDimensionsPixels.x, tileDimensionsPixels.y, __spreadArrays([{ image: crossImage, count: 1 }], shapedImages, [{ image: crossImage, count: 1 }]))];
                 case 3:
                     canvas = _b.sent();
-                    if (!(coversionType === 'base64')) return [3, 5];
-                    return [4, canvas.getBase64Async(Jimp.MIME_JPEG)];
-                case 4: return [2, _b.sent()];
-                case 5: return [2, canvas];
+                    return [2, canvas];
             }
         });
     });

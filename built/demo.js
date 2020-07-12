@@ -36,7 +36,8 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var createGrid = require('./built/utils/createGrid').default;
+var Jimp = require("jimp");
+var index_1 = require("./index");
 var inquirer = require('inquirer');
 var fs = require('fs');
 var questions = [
@@ -98,14 +99,17 @@ var questions = [
     }
 ];
 inquirer.prompt(questions).then(function (answers) { return __awaiter(void 0, void 0, void 0, function () {
-    var canvas;
+    var customImage, coverImage;
     return __generator(this, function (_a) {
         switch (_a.label) {
-            case 0: return [4, createGrid(answers)];
+            case 0: return [4, index_1.shapeImage('https://wow.zamimg.com/images/logos/special/wod/hometitle.png', index_1.ppi2px(300, 80))];
             case 1:
-                canvas = _a.sent();
-                console.log('canvas', canvas);
-                fs.writeFileSync('./demo/canvas.jpg', canvas);
+                customImage = _a.sent();
+                customImage.write('./output/wowhead_shaped.png');
+                return [4, Jimp.read('https://wow.zamimg.com/images/logos/special/wod/hometitle.png')];
+            case 2:
+                coverImage = _a.sent();
+                coverImage.cover(400, 400).write('./output/wowhead_covered.png');
                 return [2];
         }
     });
