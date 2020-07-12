@@ -43,12 +43,11 @@ var __spreadArrays = (this && this.__spreadArrays) || function () {
     return r;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var _ = require("lodash");
 var Jimp = require("jimp");
-var ppi2px = require('./ppi2px');
-var createCross = require('./createCross');
-var shapeImage = require('./shapeImage');
-var createCanvas = require('./createCanvas');
+var ppi2px_1 = require("./ppi2px");
+var createCross_1 = require("./createCross");
+var shapeImage_1 = require("./shapeImage");
+var createCanvas_1 = require("./createCanvas");
 function createGrid(_a, coversionType) {
     var columns = _a.columns, rows = _a.rows, ppi = _a.ppi, files = _a.files, diameterMM = _a.diameterMM;
     if (coversionType === void 0) { coversionType = null; }
@@ -58,15 +57,15 @@ function createGrid(_a, coversionType) {
         return __generator(this, function (_b) {
             switch (_b.label) {
                 case 0:
-                    tileDimensionsPixels = ppi2px(ppi, diameterMM);
-                    return [4, createCross(tileDimensionsPixels)];
+                    tileDimensionsPixels = ppi2px_1.default(ppi, diameterMM);
+                    return [4, createCross_1.default(tileDimensionsPixels)];
                 case 1:
                     crossImage = _b.sent();
                     return [4, Promise.all(files.map(function (img) { return __awaiter(_this, void 0, void 0, function () {
                             var shapedImage;
                             return __generator(this, function (_a) {
                                 switch (_a.label) {
-                                    case 0: return [4, shapeImage(img.file, tileDimensionsPixels)];
+                                    case 0: return [4, shapeImage_1.default(img.file, tileDimensionsPixels)];
                                     case 1:
                                         shapedImage = _a.sent();
                                         return [2, {
@@ -78,7 +77,7 @@ function createGrid(_a, coversionType) {
                         }); }))];
                 case 2:
                     shapedImages = _b.sent();
-                    return [4, createCanvas(columns, rows, tileDimensionsPixels.x, tileDimensionsPixels.y, __spreadArrays([{ image: crossImage, count: 1 }], shapedImages, [{ image: crossImage, count: 1 }]))];
+                    return [4, createCanvas_1.default(columns, rows, tileDimensionsPixels.x, tileDimensionsPixels.y, __spreadArrays([{ image: crossImage, count: 1 }], shapedImages, [{ image: crossImage, count: 1 }]))];
                 case 3:
                     canvas = _b.sent();
                     if (!(coversionType === 'base64')) return [3, 5];

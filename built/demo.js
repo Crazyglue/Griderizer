@@ -36,47 +36,80 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var Jimp = require("jimp");
-function createCanvas(columns, rows, cellWidth, cellHeight, images) {
-    return __awaiter(this, void 0, void 0, function () {
-        var canvas, totalImageCount, index, _a, count, image, j, _b, width, height, canvasY, canvasX, y, x, color;
-        var _this = this;
-        return __generator(this, function (_c) {
-            switch (_c.label) {
-                case 0: return [4, new Promise(function (resolve, reject) { return __awaiter(_this, void 0, void 0, function () {
-                        return __generator(this, function (_a) {
-                            new Jimp(columns * cellWidth, rows * cellHeight, Jimp.rgbaToInt(24, 48, 48, 1, function () { }), function (err, newCanvas) {
-                                if (err) {
-                                    console.error('err: ', err);
-                                    reject(err);
-                                }
-                                resolve(newCanvas);
-                            });
-                            return [2];
-                        });
-                    }); })];
-                case 1:
-                    canvas = _c.sent();
-                    totalImageCount = 0;
-                    for (index = 0; index < images.length; index++) {
-                        _a = images[index], count = _a.count, image = _a.image;
-                        for (j = 0; j < count; j++) {
-                            _b = image.bitmap, width = _b.width, height = _b.height;
-                            canvasY = Math.floor(totalImageCount / (columns));
-                            canvasX = totalImageCount % (columns);
-                            for (y = 0; y < height; y++) {
-                                for (x = 0; x < width; x++) {
-                                    color = image.getPixelColor(x, y);
-                                    canvas.setPixelColor(color, (canvasX * cellWidth) + x, (canvasY * cellHeight) + y);
-                                }
-                            }
-                            totalImageCount++;
-                        }
-                    }
-                    return [2, canvas];
-            }
-        });
+var createGrid = require('./built/utils/createGrid').default;
+var inquirer = require('inquirer');
+var fs = require('fs');
+var questions = [
+    {
+        type: 'input',
+        name: 'inputFolder',
+        message: "Input folder",
+        default: 'input'
+    },
+    {
+        type: 'input',
+        name: 'outputFolder',
+        message: "output folder",
+        default: 'output'
+    },
+    {
+        type: 'input',
+        name: 'columns',
+        message: 'Columns (width)',
+        validate: function (value) {
+            var valid = !isNaN(parseFloat(value));
+            return valid || 'Please enter a number';
+        },
+        filter: Number,
+        default: 7
+    },
+    {
+        type: 'input',
+        name: 'rows',
+        message: 'Rows (height)',
+        validate: function (value) {
+            var valid = !isNaN(parseFloat(value));
+            return valid || 'Please enter a number';
+        },
+        filter: Number,
+        default: 5
+    },
+    {
+        type: 'input',
+        name: 'ppi',
+        message: 'PPI',
+        validate: function (value) {
+            var valid = !isNaN(parseFloat(value));
+            return valid || 'Please enter a number';
+        },
+        filter: Number,
+        default: 300
+    },
+    {
+        type: 'input',
+        name: 'diameterMM',
+        message: 'Jewel Diameter (mm)',
+        validate: function (value) {
+            var valid = !isNaN(parseFloat(value));
+            return valid || 'Please enter a number';
+        },
+        filter: Number,
+        default: 80
+    }
+];
+inquirer.prompt(questions).then(function (answers) { return __awaiter(void 0, void 0, void 0, function () {
+    var canvas;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0: return [4, createGrid(answers)];
+            case 1:
+                canvas = _a.sent();
+                console.log('canvas', canvas);
+                fs.writeFileSync('./demo/canvas.jpg', canvas);
+                return [2];
+        }
     });
-}
-exports.default = createCanvas;
-//# sourceMappingURL=createCanvas.js.map
+}); }).catch(function (err) {
+    console.log('questionErr', err);
+});
+//# sourceMappingURL=demo.js.map

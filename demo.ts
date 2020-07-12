@@ -1,4 +1,5 @@
-const createGrid = require('./built/utils/createGrid');
+// const createGrid = require('./built/utils/createGrid').default;
+import { createGrid } from './index';
 const inquirer = require('inquirer');
 import { GridParams } from './utils/createGrid'
 // const upload = require('./built/utils/upload');
@@ -64,7 +65,7 @@ var questions = [
 ];
 
 inquirer.prompt(questions).then(async (answers: GridParams) => {
-    const canvas = await createGrid(answers);
+    const canvas = await createGrid({...answers, files: ['https://image-manip.s3.us-east-2.amazonaws.com/file-1535079890859.jpg' as any]});
     console.log('canvas', canvas)
     fs.writeFileSync('./demo/canvas.jpg', canvas);
     // upload(canvas);

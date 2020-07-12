@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build": "tsc",
-    "demo": "node demo.js",
+    "demo": "ts-node demo.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Eric Dobroveanu <eric.dobroveanu@gmail.com>",
@@ -20,6 +20,7 @@
     "@types/jimp": "^0.2.28",
     "@types/lodash": "^4.14.149",
     "@types/node": "^13.9.0",
+    "ts-node": "^8.10.2",
     "typescript": "^3.8.3"
   },
   "repository": {

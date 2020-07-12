@@ -26,5 +26,5 @@ function createCross(tileDimensionsPixels) {
         });
     });
 }
-module.exports = createCross;
+exports.default = createCross;
 //# sourceMappingURL=createCross.js.map

@@ -1,9 +1,9 @@
-const _ = require("lodash");
-const Jimp = require("jimp");
-const ppi2px = require('./ppi2px');
-const createCross = require('./createCross');
-const shapeImage = require('./shapeImage');
-const createCanvas = require('./createCanvas');
+import * as _ from 'lodash';
+import * as Jimp from 'jimp';
+import ppi2px from './ppi2px';
+import createCross from './createCross';
+import shapeImage from './shapeImage';
+import createCanvas from './createCanvas';
 
 interface InputFile {
   file: Buffer;

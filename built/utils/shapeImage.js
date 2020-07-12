@@ -66,5 +66,5 @@ function shapeImage(buffer, tileDimensionsPixels) {
         });
     });
 }
-module.exports = shapeImage;
+exports.default = shapeImage;
 //# sourceMappingURL=shapeImage.js.map

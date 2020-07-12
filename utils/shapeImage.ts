@@ -1,7 +1,7 @@
 import * as Jimp from 'jimp';
 import { TimeDimensions } from './ppi2px';
 
-async function shapeImage(buffer: Buffer, tileDimensionsPixels: TimeDimensions) {
+export default async function shapeImage(buffer: Buffer, tileDimensionsPixels: TimeDimensions) {
     // const trimmedImage = image.replace(/^data:image\/(.+);base64,/, '');
     // const buffer = Buffer.from(trimmedImage, 'base64');
     try {
@@ -28,5 +28,3 @@ async function shapeImage(buffer: Buffer, tileDimensionsPixels: TimeDimensions) 
         throw err;
     }
 }
-
-module.exports = shapeImage;

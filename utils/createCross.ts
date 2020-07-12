@@ -1,7 +1,7 @@
 import * as Jimp from 'jimp';
 import { TimeDimensions } from './ppi2px';
 
-function createCross(tileDimensionsPixels: TimeDimensions) {
+export default function createCross(tileDimensionsPixels: TimeDimensions) {
   return new Promise((resolve, reject) => {
     new Jimp(tileDimensionsPixels.x, tileDimensionsPixels.y, Jimp.rgbaToInt(200, 200, 200, 1, () => {}), (err, image) => {
         if (err) {
@@ -28,5 +28,3 @@ function createCross(tileDimensionsPixels: TimeDimensions) {
     });
   })
 }
-
-module.exports = createCross;
