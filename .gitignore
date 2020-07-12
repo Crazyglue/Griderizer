@@ -1,5 +1,6 @@
-output/*
-input/*
+output/
+input/
 node_modules/
 designs/
 config/env.js
+built/

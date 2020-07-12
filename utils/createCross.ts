@@ -1,13 +1,14 @@
-var Jimp = require("jimp");
+import * as Jimp from 'jimp';
+import { TimeDimensions } from './ppi2px';
 
-function createCross(tileDimensionsPixels) {
+export default function createCross(tileDimensionsPixels: TimeDimensions) {
   return new Promise((resolve, reject) => {
-    new Jimp(tileDimensionsPixels.x, tileDimensionsPixels.y, Jimp.rgbaToInt(200, 200, 200, 1), (err, image) => {
+    new Jimp(tileDimensionsPixels.x, tileDimensionsPixels.y, Jimp.rgbaToInt(200, 200, 200, 1, () => {}), (err, image) => {
         if (err) {
           console.error(err)
           reject(err);
         }
-        const crossColor = Jimp.rgbaToInt(0, 0, 0, 1);
+        const crossColor = Jimp.rgbaToInt(0, 0, 0, 1, () => {});
         const halfWidth = Math.floor(tileDimensionsPixels.x / 2)
         const halfHeight = Math.floor(tileDimensionsPixels.y / 2)
 
@@ -27,5 +28,3 @@ function createCross(tileDimensionsPixels) {
     });
   })
 }
-
-module.exports = createCross;

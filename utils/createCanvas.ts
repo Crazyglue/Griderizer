@@ -1,9 +1,10 @@
-var Jimp = require("jimp");
-var _ = require('lodash');
+import * as Jimp from 'jimp';
+import * as _ from 'lodash';
+import { ProcessedImage } from './createGrid';
 
-async function createCanvas(columns, rows, cellWidth, cellHeight, images) {
-    const canvasPromise = new Promise((resolve, reject) => {
-      new Jimp(columns * cellWidth, rows * cellHeight, Jimp.rgbaToInt(24, 48, 48, 1), (err, newCanvas) => {
+export default async function createCanvas(columns: number, rows: number, cellWidth: number, cellHeight: number, images: ProcessedImage[]) {
+    const canvas: Jimp = await new Promise(async (resolve, reject) => {
+      new Jimp(columns * cellWidth, rows * cellHeight, Jimp.rgbaToInt(24, 48, 48, 1, () => {}), (err, newCanvas) => {
         if (err) {
           console.error('err: ', err);
           reject(err);
@@ -11,8 +12,6 @@ async function createCanvas(columns, rows, cellWidth, cellHeight, images) {
         resolve(newCanvas);
       })
     })
-
-    const canvas = await canvasPromise;
 
     let totalImageCount = 0;
 
@@ -37,5 +36,3 @@ async function createCanvas(columns, rows, cellWidth, cellHeight, images) {
     }
     return canvas
 }
-
-module.exports = createCanvas;
